@@ -17,6 +17,7 @@ use App\Models\BookingtreatmenItem;
 use App\Models\Category;
 use App\Models\Categorytreatmen;
 use App\Models\DaftarTunggu;
+use App\Models\Testimoni;
 use App\Models\TransactionItem;
 use App\Models\Treatmen;
 use Carbon\Carbon;
@@ -29,7 +30,10 @@ class FrontendController extends Controller
         $treatments = Treatmen::with('bagian')->latest()->get();
         $categoryproducts = Category::all();
         $categorytreatments = Categorytreatmen::all();
-        return view('pages.frontend.index', compact('products', 'treatments', 'categoryproducts', 'categorytreatments'));
+        $products = Product::all();
+        $treatments = Treatmen::all();
+        $testimonis = Testimoni::all();
+        return view('pages.frontend.index', compact('products', 'treatments', 'categoryproducts', 'categorytreatments', 'testimonis', 'products', 'treatments'));
     }
 
     public function category()
@@ -367,5 +371,36 @@ class FrontendController extends Controller
             $items = null;
         }
         return view('pages.frontend.checkinvoice', compact('result', 'items'));
+    }
+
+
+    public function storeTestimoni(Request $request)
+    {
+
+        $validatedData = $request->validate([
+            'users_id' => 'required|exists:users,id',
+            'product_id' => 'required|exists:products,id',
+            'treatmen_id' => 'required|exists:treatmens,id',
+            'foto_before' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:25000',
+            'foto_after' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:25000',
+            'testimoni_text' => 'required|string|max:500',
+        ]);
+
+
+        if ($request->hasFile('foto_before')) {
+            $fotoBeforePath = $request->file('foto_before')->store('testimoni/foto_before', 'public');
+            $validatedData['foto_before'] = $fotoBeforePath;
+        }
+
+      
+        if ($request->hasFile('foto_after')) {
+            $fotoAfterPath = $request->file('foto_after')->store('testimoni/foto_after', 'public');
+            $validatedData['foto_after'] = $fotoAfterPath;
+        }
+
+    
+        Testimoni::create($validatedData);
+
+        return redirect()->back()->with('success', 'Testimoni berhasil ditambahkan!');
     }
 }

@@ -58,6 +58,7 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
 
 
     Route::post('/checkout', [FrontendController::class, 'checkout'])->name('checkout');
+    Route::post('/testimoni', [FrontendController::class, 'storeTestimoni'])->name('testimoni.store');
     Route::post('/bookingout', [FrontendController::class, 'bookingout'])->name('bookingout');
 
     Route::get('/checkout/success', [FrontendController::class, 'success'])->name('checkout-success');

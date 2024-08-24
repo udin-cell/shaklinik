@@ -1,6 +1,9 @@
 @extends('layouts.frontend')
 
+
 @section('content')
+
+
 <!-- Categories Section Begin -->
 <section class="categories">
   <div class="container-fluid" style="rounded-lg">
@@ -159,44 +162,109 @@
 <section class="banner set-bg" data-setbg="{{asset('../klinik/img/banner/banner-1.jpg')}}">
   <div class="container">
     <div class="row">
-      <div class="col-xl-7 col-lg-8 m-auto">
+      <div class="col-xl-12 col-lg-12 m-auto">
         <div class="banner__slider owl-carousel">
+          @foreach ($testimonis as $testimoni)
           <div class="banner__item">
             <div class="banner__text">
               <span>Sha Klinik</span>
-              <h1>The Project</h1>
-              <a href="">Lihat Treatmen Sekarang</a>
+              <h1>The Testimoni</h1>
+              <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#testimoniModal">
+                Post Testi Moni Kamu
+              </button>
+            </div>
+            <!-- Foto Before dan After -->
+            <div class="banner__images d-flex justify-content-between">
+              <div class="text-center" style="width: 50%;">
+                <img
+                  src="{{ $testimoni->foto_before ? url($testimoni->foto_before) : 'data:image/gif;base64,R0lGODlhAQABAIAAAMLCwgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==' }}"
+                  alt="Foto Before" class="img-fluid"
+                  style="width: 500px; height: 500px; object-fit: contain; border-radius: 15px;">
+                <p style="margin-top: 10px;">Before</p>
+              </div>
+              <div class="text-center" style="width: 50%;">
+                <img
+                  src="{{ $testimoni->foto_after ? url($testimoni->foto_after) : 'data:image/gif;base64,R0lGODlhAQABAIAAAMLCwgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==' }}"
+                  alt="Foto After" class="img-fluid"
+                  style="width: 500px; height: 500px; object-fit: contain; border-radius: 15px;">
+                <p style="margin-top: 10px;">After</p>
+              </div>
+            </div>
+            <!-- Hasil Testimoni -->
+            <div class="testimoni-bubble"
+              style="margin-top: 20px; text-align: center; position: relative; max-width: 1000px; margin-left: auto; margin-right: auto;">
+              <p
+                style="background: #f0f0f0; padding: 15px; border-radius: 15px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);">
+                "Hai Perkenalkan Aku "{{$testimoni->user->name}}", Terimakasih Banget ShaaKlinik Dengan Menggunakan
+                Produk
+                "{{$testimoni->product->name}}" dan Treatmen
+                "{{$testimoni->treatmen->nama_jasa}}".
+                <br>
+                {{$testimoni->testimoni_text}}
+                "
+              </p>
             </div>
           </div>
-          <div class="banner__item">
-            <div class="banner__text">
-              <span>Sha Klinik</span>
-              <h1>The Project</h1>
-              <a href="#">Shop now</a>
-            </div>
-          </div>
-          <div class="banner__item">
-            <div class="banner__text">
-              <span>Sha Klinik</span>
-              <h1>The Project</h1>
-              <a href="#">Shop now</a>
-            </div>
-          </div>
+          @endforeach
         </div>
       </div>
+
+
+      {{-- --}}
+
     </div>
   </div>
 </section>
-<!-- Banner Section End -->
 
-<!-- Trend Section Begin -->
+<!-- Modal Form -->
+<div class="modal fade" id="testimoniModal" tabindex="-1" aria-labelledby="testimoniModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="testimoniModalLabel">Post Your Testimoni</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="{{ route('testimoni.store') }}" method="POST" enctype="multipart/form-data">
+          @csrf
+          @auth
+          <div class="mb-3">
+            <input hidden class="form-control" id="users_id" name="users_id" value="{{ Auth::user()->id }}" required>
+          </div>
+          @endauth
+          <div class="mb-3">
+            <label for="product_id" class="form-label">Produk Yang Di Pakai</label>
+            <select class="form-control" name="product_id" id="">
+              @foreach ($products as $product)
+              <option value="{{$product->id}}">{{$product->name}}</option>
+              @endforeach
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="product_id" class="form-label">Treatmen Yang Di lakukan</label>
+            <select class="form-control" name="treatmen_id" id="">
+              @foreach ($treatments as $treatmen)
+              <option value="{{$treatmen->id}}">{{$treatmen->nama_jasa}}</option>
+              @endforeach
+            </select>
+          </div>
 
-<!-- Discount Section End -->
-
-<!-- Services Section Begin -->
-
-<!-- Services Section End -->
-
-
-<!-- Instagram End -->
+          <div class="mb-3">
+            <label for="foto_before" class="form-label">Foto Before</label>
+            <input type="file" class="form-control" id="foto_before" name="foto_before" accept="image/*" required>
+          </div>
+          <div class="mb-3">
+            <label for="foto_after" class="form-label">Foto After</label>
+            <input type="file" class="form-control" id="foto_after" name="foto_after" accept="image/*" required>
+          </div>
+          <div class="mb-3">
+            <label for="testimoni_text" class="form-label">Testimoni Text</label>
+            <textarea class="form-control" id="testimoni_text" name="testimoni_text" rows="3" required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
 @endsection

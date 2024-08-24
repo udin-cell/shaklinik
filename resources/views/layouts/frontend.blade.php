@@ -15,6 +15,9 @@
       rel="stylesheet">
 
     <!-- Css Styles -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
     <link rel="stylesheet" href="{{asset('../klinik/css/bootstrap.min.css')}}" type="text/css">
     <link rel="stylesheet" href="{{asset('../klinik/css/font-awesome.min.css')}}" type="text/css">
     <link rel="stylesheet" href="{{asset('../klinik/css/elegant-icons.css')}}" type="text/css">
@@ -69,6 +72,10 @@
     <script src="{{asset('../klinik/js/jquery.nicescroll.min.js')}}"></script>
     <script src="{{asset('../klinik/js/main.js')}}"></script>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+    </script>
+    @include('sweetalert::alert')
   </body>
 
 </html>
