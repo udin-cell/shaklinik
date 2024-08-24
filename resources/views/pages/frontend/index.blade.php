@@ -217,19 +217,7 @@
             <!-- Foto Before dan After -->
 
             <!-- Hasil Testimoni -->
-            <div class="testimoni-bubble"
-              style="margin-top: 20px; text-align: center; position: relative; max-width: 1000px; margin-left: auto; margin-right: auto;">
-              <p
-                style="background: #f0f0f0; padding: 15px; border-radius: 15px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);">
-                "Hai Perkenalkan Aku "{{$testimoni->user->name}}", Terimakasih Banget ShaaKlinik Dengan Menggunakan
-                Produk
-                "{{$testimoni->product->name}}" dan Treatmen
-                "{{$testimoni->treatmen->nama_jasa}}".
-                <br>
-                {{$testimoni->testimoni_text}}
-                "
-              </p>
-            </div>
+
           </div>
           @endforelse
         </div>
