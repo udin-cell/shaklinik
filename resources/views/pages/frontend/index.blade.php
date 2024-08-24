@@ -159,7 +159,7 @@
 <!-- Product Section End -->
 
 <!-- Banner Section Begin -->
-<section class="banner set-bg" data-setbg="{{asset('../klinik/img/banner/banner-1.jpg')}}">
+<section id="#testimoni" class="banner set-bg" data-setbg="{{asset('../klinik/img/banner/banner-1.jpg')}}">
   <div class="container">
     <div class="row">
       <div class="col-xl-12 col-lg-12 m-auto">

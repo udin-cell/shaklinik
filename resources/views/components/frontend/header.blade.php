@@ -35,7 +35,7 @@
                                 Invoice </a>
                         </li>
                         <li class="{{ \Route::current()->getName() == 'category' ? 'active' : '' }}"><a
-                            href="{{route('category')}}">Testimoni</a></li>
+                                href="#testimoni">Testimoni</a></li>
 
                     </ul>
                 </nav>
