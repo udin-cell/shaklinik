@@ -164,7 +164,7 @@
     <div class="row">
       <div class="col-xl-12 col-lg-12 m-auto">
         <div class="banner__slider owl-carousel">
-          @foreach ($testimonis as $testimoni)
+          @forelse ($testimonis as $testimoni)
           <div class="banner__item">
             <div class="banner__text">
               <span>Sha Klinik</span>
@@ -205,7 +205,33 @@
               </p>
             </div>
           </div>
-          @endforeach
+          @empty
+          <div class="banner__item">
+            <div class="banner__text">
+              <span>Sha Klinik</span>
+              <h1>The Testimoni</h1>
+              <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#testimoniModal">
+                Post Testi Moni Kamu
+              </button>
+            </div>
+            <!-- Foto Before dan After -->
+
+            <!-- Hasil Testimoni -->
+            <div class="testimoni-bubble"
+              style="margin-top: 20px; text-align: center; position: relative; max-width: 1000px; margin-left: auto; margin-right: auto;">
+              <p
+                style="background: #f0f0f0; padding: 15px; border-radius: 15px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);">
+                "Hai Perkenalkan Aku "{{$testimoni->user->name}}", Terimakasih Banget ShaaKlinik Dengan Menggunakan
+                Produk
+                "{{$testimoni->product->name}}" dan Treatmen
+                "{{$testimoni->treatmen->nama_jasa}}".
+                <br>
+                {{$testimoni->testimoni_text}}
+                "
+              </p>
+            </div>
+          </div>
+          @endforelse
         </div>
       </div>
 
